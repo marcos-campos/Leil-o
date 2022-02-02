@@ -28,15 +28,15 @@ class ListaLeilaoActivity : AppCompatActivity() {
     private fun trazerListaLeiloes(): MutableList<Leilao> {
 
         val leilao1 = Leilao("Console")
-        leilao1.propoe(Lance(Usuario("Bruno"), 200.00))
-        leilao1.propoe(Lance(Usuario("Alex"),250.00))
-        leilao1.propoe(Lance(Usuario("Caio"),280.00))
+        leilao1.propoe(Lance(Usuario("Bruno"), 220.00))
+        leilao1.propoe(Lance(Usuario("Alex"),280.00))
+        leilao1.propoe(Lance(Usuario("Caio"),300.00))
 
         val leilao2 = Leilao("Carro")
-        leilao2.propoe(Lance(Usuario("Caio"), 15000.00))
-        leilao2.propoe(Lance(Usuario("Carlos"),10000.00))
+        leilao2.propoe(Lance(Usuario("Caio"), 22000.00))
+        leilao2.propoe(Lance(Usuario("Carlos"),25000.00))
         leilao2.propoe(Lance(Usuario("Camila"),13500.00))
-        leilao2.propoe(Lance(Usuario("Mario"),17000.00))
+        leilao2.propoe(Lance(Usuario("Mario"),20000.00))
 
         val leilao3 = Leilao("Computador")
         leilao3.propoe(Lance(Usuario("José"), 1000.00))

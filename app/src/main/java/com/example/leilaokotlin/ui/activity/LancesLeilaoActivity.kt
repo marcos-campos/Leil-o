@@ -26,35 +26,28 @@ class LancesLeilaoActivity : AppCompatActivity() {
         maiorLance.text = infoLeilao.getMaiorLance().toString()
         menorLance.text = infoLeilao.getMenorLances().toString()
 
-
-//        var valorMaiorLance = infoLeilao.tresMaioresLances()?.get(0)?.getValue().toString()
-//        val valorSegundoMaiorLance = infoLeilao.tresMaioresLances()?.get(1)?.getValue().toString()
-//        var valorTerceiroMaiorLance = ""
-//        infoLeilao.tresMaioresLances()?.get(2).let { valorTerceiroMaiorLance = it?.getValue().toString() }
-
         var valorMaiorLance = ""
-
         if (0 < infoLeilao.tresMaioresLances()!!.size) {
             valorMaiorLance = infoLeilao.tresMaioresLances()?.get(0)?.getValue().toString()
         }
 
-
         var valorSegundoMaiorLance = ""
-
         if (1 < infoLeilao.tresMaioresLances()!!.size) {
             valorSegundoMaiorLance = infoLeilao.tresMaioresLances()?.get(1)?.getValue().toString()
         }
 
         var valorTerceiroMaiorLance = ""
-
         if (2 < infoLeilao.tresMaioresLances()!!.size) {
-            valorTerceiroMaiorLance = infoLeilao.tresMaioresLances()?.get(1)?.getValue().toString()
+            valorTerceiroMaiorLance = infoLeilao.tresMaioresLances()?.get(2)?.getValue().toString()
         }
-
         primeiroMaiorLance.text = valorMaiorLance
         segundoMaiorLance.text = valorSegundoMaiorLance
         terceiroMaiorLance.text = valorTerceiroMaiorLance
 
     }
-
 }
+
+//        var valorMaiorLance = infoLeilao.tresMaioresLances()?.get(0)?.getValue().toString()
+//        val valorSegundoMaiorLance = infoLeilao.tresMaioresLances()?.get(1)?.getValue().toString()
+//        var valorTerceiroMaiorLance = ""
+//        infoLeilao.tresMaioresLances()?.get(2).let { valorTerceiroMaiorLance = it?.getValue().toString() }

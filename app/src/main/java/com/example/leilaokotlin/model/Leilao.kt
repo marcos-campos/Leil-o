@@ -5,8 +5,8 @@ import java.util.*
 
 class Leilao(var descricao: String? = "",
              var listaLances: MutableList<Lance>? = mutableListOf(),
-             var maiorLance: Double? = Double.MIN_VALUE,
-             var menorLance: Double = Double.MAX_VALUE) : Serializable {
+             var maiorLance: Double? = 0.0,
+             var menorLance: Double = 0.0) : Serializable {
 
     fun getDescription(): String? {
         return descricao
@@ -14,8 +14,30 @@ class Leilao(var descricao: String? = "",
 
     fun propoe(lance: Lance) {
 
+        if (maiorLance!! > lance.getValue()){
+            return
+        }
+
+        if (!listaLances?.isEmpty()!!) {
+
+            val usuarioNovo = lance.getUser()
+            val ultimoUsuario = listaLances!![0].getUser()
+
+            if (usuarioNovo != null) {
+                if (usuarioNovo == ultimoUsuario) {
+                    return
+                }
+            }
+
+        }
+
         listaLances?.add(lance)
         listaLances?.sortByDescending { it.valor }
+
+        if (listaLances?.size == 1) {
+            maiorLance  = lance.getValue()
+            menorLance  = lance.getValue()
+        }
 
         calculaMaiorLance(lance)
         calculaMenorLance(lance)
@@ -57,6 +79,9 @@ class Leilao(var descricao: String? = "",
         }
 
         return quantidadeMaximaLances?.let { listaLances?.subList(0, it) }
+    }
 
+    fun quantidadeLancesDevolvido(): Int? {
+        return listaLances?.size
     }
 }

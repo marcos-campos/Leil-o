@@ -8,4 +8,5 @@ class Usuario(nome: String?): Serializable {
     fun Usuario(nome: String?) {
         this.nome = nome
     }
+
 }
