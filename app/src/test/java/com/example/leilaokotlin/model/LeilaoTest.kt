@@ -192,4 +192,26 @@ class LeilaoTest {
 
     }
 
+    @Test
+    fun naoDeve_AdicionarLance_QuandoReceberMaisDeCincoLancesDoMesmoUsuario() {
+        val lucas = Usuario("Lucas")
+        leilao.propoe(Lance(alex, 100.00))
+        leilao.propoe(Lance(lucas, 200.00))
+        leilao.propoe(Lance(alex, 300.00))
+        leilao.propoe(Lance(lucas, 400.00))
+        leilao.propoe(Lance(alex, 500.00))
+        leilao.propoe(Lance(lucas, 600.00))
+        leilao.propoe(Lance(alex, 700.00))
+        leilao.propoe(Lance(lucas, 800.00))
+        leilao.propoe(Lance(alex, 900.00))
+        leilao.propoe(Lance(lucas, 1000.00))
+        leilao.propoe(Lance(alex, 1100.00))
+        leilao.propoe(Lance(lucas, 1200.00))
+
+        val quantidadeLancesDevolvidos =  leilao.quantidadeLancesDevolvido()
+
+        assertEquals(10, quantidadeLancesDevolvidos)
+
+    }
+
 }

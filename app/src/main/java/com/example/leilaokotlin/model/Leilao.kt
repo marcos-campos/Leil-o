@@ -29,6 +29,17 @@ class Leilao(var descricao: String? = "",
                 }
             }
 
+            var lancesDoUsuario: Int = 0
+            var usuarioExistente: Usuario
+
+            for(x in listaLances!!){
+                usuarioExistente = x.getUser()!!
+                if (usuarioExistente.equals(usuarioNovo))
+                    lancesDoUsuario++
+                if (lancesDoUsuario == 5){
+                    return
+                }
+            }
         }
 
         listaLances?.add(lance)
