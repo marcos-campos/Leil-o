@@ -179,19 +179,19 @@ class LeilaoTest {
             leilao.propoe(Lance(Usuario("Bruno"), 400.00))
             fail("Era esperada uma RuntimeException")
         } catch (exception: RuntimeException) {
-            // teste passou
+            assertEquals("Lance foi menor que maior lance", exception.message)
         }
     }
 
     @Test
     fun naoDeve_AdicionarLance_QuandoForMesmoUsuarioDoUltimoLance() {
         leilao.propoe(Lance(alex, 500.00))
-        leilao.propoe(Lance(alex, 600.00))
-
-        val quantidadeLancesDevolvidos =  leilao.quantidadeLancesDevolvido()
-
-        assertEquals(1, quantidadeLancesDevolvidos)
-
+        try {
+            leilao.propoe(Lance(alex, 600.00))
+            fail("Era esperada uma RuntimeException")
+        } catch (exception: RuntimeException) {
+            assertEquals("Mesmo usuário do último lance", exception.message)
+        }
     }
 
     @Test
@@ -207,13 +207,13 @@ class LeilaoTest {
         leilao.propoe(Lance(lucas, 800.00))
         leilao.propoe(Lance(alex, 900.00))
         leilao.propoe(Lance(lucas, 1000.00))
-        leilao.propoe(Lance(alex, 1100.00))
-        leilao.propoe(Lance(lucas, 1200.00))
 
-        val quantidadeLancesDevolvidos =  leilao.quantidadeLancesDevolvido()
-
-        assertEquals(10, quantidadeLancesDevolvidos)
+        try {
+            leilao.propoe(Lance(alex, 1100.00))
+            fail("Era esperada uma RuntimeException")
+        } catch (excetion: RuntimeException) {
+            assertEquals("Usuário já deu cinco lances", excetion.message)
+        }
 
     }
-
 }

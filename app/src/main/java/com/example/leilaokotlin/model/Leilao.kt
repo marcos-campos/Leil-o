@@ -31,14 +31,17 @@ class Leilao(var descricao: String? = "",
     }
 
     private fun lanceNaoValido(lance: Lance): Boolean {
-        if (lanceForMenorQueOUltimoLance(lance)) return throw RuntimeException()
+        if (lanceForMenorQueOUltimoLance(lance))
+            throw RuntimeException("Lance foi menor que maior lance")
         if (!listaLances?.isEmpty()!!) {
 
             val usuarioNovo = lance.getUser()
             val ultimoUsuario = listaLances!![0].getUser()
 
-            if (usuarioForMesmoUltimoLance(usuarioNovo, ultimoUsuario)) return true
-            if (usuarioDeuCincoLances(usuarioNovo)) return true
+            if (usuarioForMesmoUltimoLance(usuarioNovo, ultimoUsuario))
+                throw RuntimeException("Mesmo usuário do último lance")
+            if (usuarioDeuCincoLances(usuarioNovo))
+            throw RuntimeException("Usuário já deu cinco lances")
         }
         return false
     }
