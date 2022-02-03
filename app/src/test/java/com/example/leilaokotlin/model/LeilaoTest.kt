@@ -3,6 +3,7 @@ package com.example.leilaokotlin.model
 import org.junit.Test
 
 import org.junit.Assert.*
+import java.lang.RuntimeException
 
 class LeilaoTest {
 
@@ -140,8 +141,8 @@ class LeilaoTest {
     fun deve_DevolverTresMaioresLances_QuandoRecebeCincoLances() {
 
         leilao.propoe(Lance(alex, 400.00))
-        leilao.propoe(Lance(Usuario("Bruno"), 100.00))
-        leilao.propoe(Lance(Usuario("Breno"), 500.00))
+        leilao.propoe(Lance(Usuario("Bruno"), 500.00))
+        leilao.propoe(Lance(Usuario("Breno"), 600.00))
         leilao.propoe(Lance(Usuario("Caio"), 700.00))
         leilao.propoe(Lance(Usuario("Lucas"), 800.00))
 
@@ -150,7 +151,7 @@ class LeilaoTest {
         assertEquals(3, tresMaioresLancesDevolvidos?.size)
         tresMaioresLancesDevolvidos?.get(0)?.let { assertEquals(800.00, it.getValue(), 0.001) }
         tresMaioresLancesDevolvidos?.get(1)?.let { assertEquals(700.00, it.getValue(), 0.001) }
-        tresMaioresLancesDevolvidos?.get(2)?.let { assertEquals(500.00, it.getValue(), 0.001) }
+        tresMaioresLancesDevolvidos?.get(2)?.let { assertEquals(600.00, it.getValue(), 0.001) }
 
     }
 
@@ -174,11 +175,12 @@ class LeilaoTest {
     @Test
     fun naoDeve_AdicionarLance_QuandoLanceMenorQueOMaiorLance() {
         leilao.propoe(Lance(alex, 500.00))
-        leilao.propoe(Lance(Usuario("Bruno"), 400.00))
-
-        val quantidadeLancesDevolvidos =  leilao.quantidadeLancesDevolvido()
-
-        assertEquals(1, quantidadeLancesDevolvidos)
+        try {
+            leilao.propoe(Lance(Usuario("Bruno"), 400.00))
+            fail("Era esperada uma RuntimeException")
+        } catch (exception: RuntimeException) {
+            // teste passou
+        }
     }
 
     @Test
