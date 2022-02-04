@@ -1,6 +1,10 @@
 package com.example.leilaokotlin.model
 
 import com.example.leilaokotlin.exception.LanceMenorQueUltimoLanceException
+import org.hamcrest.CoreMatchers.*
+import org.hamcrest.Matchers.contains
+import org.hamcrest.Matchers.hasSize
+import org.hamcrest.number.IsCloseTo.closeTo
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -13,6 +17,7 @@ class LeilaoTest {
     private val leilao = Leilao("console")
     private val alex = Usuario("Alex")
     private val lucas = Usuario("Lucas")
+    private val bruno = Usuario("Bruno")
 
     //como nomear um teste: [nome do método] [estado de teste] [resultado esperado]
     @Test
@@ -25,7 +30,10 @@ class LeilaoTest {
         val descricaoDevolvida = leilao.getDescription()
 
         // testar resultado esperado
-        assertEquals("console", descricaoDevolvida)
+//        assertEquals("console", descricaoDevolvida)
+
+
+        assertThat(descricaoDevolvida, `is`("console"))
 
     }
 
@@ -41,7 +49,9 @@ class LeilaoTest {
         val maiorLanceDevolvido = leilao.getMaiorLance()
 
         // testar resultado esperado
-        assertEquals(200.00, maiorLanceDevolvido, 0.001)
+//        assertEquals(200.00, maiorLanceDevolvido, 0.001)
+
+        assertThat(maiorLanceDevolvido, closeTo(200.00, 0.001))
     }
 
     @Test
@@ -92,16 +102,28 @@ class LeilaoTest {
     fun deve_DevolverTresMaioresLances_QuandoRecebeExatosTresLances() {
 
         leilao.propoe(Lance(alex, 400.00))
-        leilao.propoe(Lance(Usuario("Bruno"), 500.00))
-        leilao.propoe(Lance(Usuario("Breno"), 600.00))
+        leilao.propoe(Lance(lucas, 500.00))
+        leilao.propoe(Lance(bruno, 600.00))
 
 
         val tresMaioresLancesDevolvidos: List<Lance>? = leilao.tresMaioresLances()
 
-        assertEquals(3, tresMaioresLancesDevolvidos?.size)
-        tresMaioresLancesDevolvidos?.get(0)?.let { assertEquals(600.00, it.getValue(), 0.001) }
-        tresMaioresLancesDevolvidos?.get(1)?.let { assertEquals(500.00, it.getValue(), 0.001) }
-        tresMaioresLancesDevolvidos?.get(2)?.let { assertEquals(400.00, it.getValue(), 0.001) }
+//        assertEquals(3, tresMaioresLancesDevolvidos?.size)
+
+//        assertThat(tresMaioresLancesDevolvidos, hasSize(3))
+
+//        tresMaioresLancesDevolvidos?.get(0)?.let { assertEquals(600.00, it.getValue(), 0.001) }
+
+//        assertThat(tresMaioresLancesDevolvidos, hasItem(Lance(alex, 400.00)))
+//
+//        tresMaioresLancesDevolvidos?.get(1)?.let { assertEquals(500.00, it.getValue(), 0.001) }
+//        tresMaioresLancesDevolvidos?.get(2)?.let { assertEquals(400.00, it.getValue(), 0.001) }
+
+
+        assertThat(tresMaioresLancesDevolvidos, contains(
+            Lance(bruno, 600.00),
+            Lance(lucas, 500.00),
+            Lance(alex, 400.00) ))
 
     }
 
