@@ -1,9 +1,12 @@
 package com.example.leilaokotlin.model
 
+import com.example.leilaokotlin.exception.LanceMenorQueUltimoLanceException
 import org.junit.Test
 
 import org.junit.Assert.*
-import java.lang.RuntimeException
+import org.junit.Rule
+import org.junit.rules.ExpectedException
+
 
 class LeilaoTest {
 
@@ -179,8 +182,9 @@ class LeilaoTest {
             leilao.propoe(Lance(Usuario("Bruno"), 400.00))
             fail("Era esperada uma RuntimeException")
         } catch (exception: RuntimeException) {
-            assertEquals("Lance foi menor que maior lance", exception.message)
+            assertEquals("Lance menor que o último lance", exception.message)
         }
+
     }
 
     @Test
@@ -214,6 +218,5 @@ class LeilaoTest {
         } catch (excetion: RuntimeException) {
             assertEquals("Usuário já deu cinco lances", excetion.message)
         }
-
     }
 }

@@ -13,14 +13,12 @@ class Leilao(var descricao: String? = "",
     }
 
     fun propoe(lance: Lance) {
-        if (lanceNaoValido(lance)) return
-
+        valida(lance)
         listaLances?.add(lance)
         listaLances?.sortByDescending { it.valor }
 
         defineMaiorEMenorLanceParaPrimeiroLance(lance)
         calculaMaiorLance(lance)
-        calculaMenorLance(lance)
     }
 
     private fun defineMaiorEMenorLanceParaPrimeiroLance(lance: Lance) {
@@ -30,9 +28,9 @@ class Leilao(var descricao: String? = "",
         }
     }
 
-    private fun lanceNaoValido(lance: Lance): Boolean {
+    private fun valida(lance: Lance) {
         if (lanceForMenorQueOUltimoLance(lance))
-            throw RuntimeException("Lance foi menor que maior lance")
+            throw RuntimeException("Lance menor que o último lance")
         if (!listaLances?.isEmpty()!!) {
 
             val usuarioNovo = lance.getUser()
@@ -40,10 +38,10 @@ class Leilao(var descricao: String? = "",
 
             if (usuarioForMesmoUltimoLance(usuarioNovo, ultimoUsuario))
                 throw RuntimeException("Mesmo usuário do último lance")
+
             if (usuarioDeuCincoLances(usuarioNovo))
             throw RuntimeException("Usuário já deu cinco lances")
         }
-        return false
     }
 
     private fun usuarioDeuCincoLances(usuarioNovo: Usuario?): Boolean {
@@ -93,14 +91,6 @@ class Leilao(var descricao: String? = "",
 
         if (valor > maiorLance!!) {
             maiorLance = valor
-        }
-    }
-
-    fun calculaMenorLance(lance: Lance) {
-        val valor = lance.getValue()
-
-        if (valor < menorLance) {
-            menorLance = valor
         }
     }
 
